@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2sp"
+    android:layout_marginLeft="5sp"
+    android:layout_marginRight="5sp"
+    android:layout_marginTop="5sp"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="0.3" >
+
+        <Spinner
+            android:id="@+id/spinnerVar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/buttonEditVar"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="Edit" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:layout_weight="0.7">
+
+        <SeekBar
+            android:id="@+id/seekBarRe"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"            
+            android:max="100"
+            android:progress="0" />
+
+        <SeekBar
+            android:id="@+id/seekBarIm"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"           
+            android:max="100"
+            android:progress="0" />
+    </LinearLayout>
+</LinearLayout>

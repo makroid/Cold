@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Cold</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title">Cold</string>
+    <string name="sub">Simple domain coloring</string>
+    <string name="tabCold">Main</string>
+    <string name="errorShaderCompiler">error while compiling shader</string>
+    <string name="sine">sine</string>
+    <string name="cosine">cosine</string>
+    <string name="exp">exp</string>
+    <string name="log">log</string>
+    <string name="brackets">( )</string>
+
+</resources>
