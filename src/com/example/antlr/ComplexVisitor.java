@@ -1,16 +1,15 @@
 package com.example.antlr;
-
-//Generated from Complex.g4 by ANTLR 4.1
+// Generated from Complex.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
-* This interface defines a complete generic visitor for a parse tree produced
-* by {@link ComplexParser}.
-*
-* @param <T> The return type of the visit operation. Use {@link Void} for
-* operations with no return type.
-*/
+ * This interface defines a complete generic visitor for a parse tree produced
+ * by {@link ComplexParser}.
+ *
+ * @param <T> The return type of the visit operation. Use {@link Void} for
+ * operations with no return type.
+ */
 public interface ComplexVisitor<T> extends ParseTreeVisitor<T> {
 	/**
 	 * Visit a parse tree produced by {@link ComplexParser#id}.
@@ -88,6 +87,13 @@ public interface ComplexVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLog(@NotNull ComplexParser.LogContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ComplexParser#UnaryMinus}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryMinus(@NotNull ComplexParser.UnaryMinusContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ComplexParser#MulDiv}.

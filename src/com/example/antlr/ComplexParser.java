@@ -1,6 +1,5 @@
 package com.example.antlr;
-
-//Generated from Complex.g4 by ANTLR 4.1
+// Generated from Complex.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -249,6 +248,17 @@ public class ComplexParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	public static class UnaryMinusContext extends ExprContext {
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public UnaryMinusContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ComplexVisitor ) return ((ComplexVisitor<? extends T>)visitor).visitUnaryMinus(this);
+			else return visitor.visitChildren(this);
+		}
+	}
 	public static class MulDivContext extends ExprContext {
 		public Token op;
 		public List<ExprContext> expr() {
@@ -277,15 +287,24 @@ public class ComplexParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(40);
+			setState(42);
 			switch (_input.LA(1)) {
+			case SUB:
+				{
+				_localctx = new UnaryMinusContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
+				setState(13); match(SUB);
+				setState(14); expr(11);
+				}
+				break;
 			case DBL:
 				{
 				_localctx = new DoubleContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-
-				setState(13); match(DBL);
+				setState(15); match(DBL);
 				}
 				break;
 			case COMPL:
@@ -293,7 +312,7 @@ public class ComplexParser extends Parser {
 				_localctx = new ComplexContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(14); match(COMPL);
+				setState(16); match(COMPL);
 				}
 				break;
 			case ID:
@@ -301,7 +320,7 @@ public class ComplexParser extends Parser {
 				_localctx = new IdContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(15); match(ID);
+				setState(17); match(ID);
 				}
 				break;
 			case SIN:
@@ -309,10 +328,10 @@ public class ComplexParser extends Parser {
 				_localctx = new SineContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(16); match(SIN);
-				setState(17); match(2);
-				setState(18); expr(0);
-				setState(19); match(1);
+				setState(18); match(SIN);
+				setState(19); match(2);
+				setState(20); expr(0);
+				setState(21); match(1);
 				}
 				break;
 			case COS:
@@ -320,10 +339,10 @@ public class ComplexParser extends Parser {
 				_localctx = new CosContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(21); match(COS);
-				setState(22); match(2);
-				setState(23); expr(0);
-				setState(24); match(1);
+				setState(23); match(COS);
+				setState(24); match(2);
+				setState(25); expr(0);
+				setState(26); match(1);
 				}
 				break;
 			case EXP:
@@ -331,10 +350,10 @@ public class ComplexParser extends Parser {
 				_localctx = new ExpContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(26); match(EXP);
-				setState(27); match(2);
-				setState(28); expr(0);
-				setState(29); match(1);
+				setState(28); match(EXP);
+				setState(29); match(2);
+				setState(30); expr(0);
+				setState(31); match(1);
 				}
 				break;
 			case LOG:
@@ -342,10 +361,10 @@ public class ComplexParser extends Parser {
 				_localctx = new LogContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(31); match(LOG);
-				setState(32); match(2);
-				setState(33); expr(0);
-				setState(34); match(1);
+				setState(33); match(LOG);
+				setState(34); match(2);
+				setState(35); expr(0);
+				setState(36); match(1);
 				}
 				break;
 			case 2:
@@ -353,16 +372,16 @@ public class ComplexParser extends Parser {
 				_localctx = new ParensContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(36); match(2);
-				setState(37); expr(0);
-				setState(38); match(1);
+				setState(38); match(2);
+				setState(39); expr(0);
+				setState(40); match(1);
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(50);
+			setState(52);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			while ( _alt!=2 && _alt!=-1 ) {
@@ -370,22 +389,22 @@ public class ComplexParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(48);
+					setState(50);
 					switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 					case 1:
 						{
 						_localctx = new MulDivContext(new ExprContext(_parentctx, _parentState, _p));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(42);
+						setState(44);
 						if (!(10 >= _localctx._p)) throw new FailedPredicateException(this, "10 >= $_p");
-						setState(43);
+						setState(45);
 						((MulDivContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==MUL || _la==DIV) ) {
 							((MulDivContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(44); expr(11);
+						setState(46); expr(11);
 						}
 						break;
 
@@ -393,22 +412,22 @@ public class ComplexParser extends Parser {
 						{
 						_localctx = new AddSubContext(new ExprContext(_parentctx, _parentState, _p));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(45);
+						setState(47);
 						if (!(9 >= _localctx._p)) throw new FailedPredicateException(this, "9 >= $_p");
-						setState(46);
+						setState(48);
 						((AddSubContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==ADD || _la==SUB) ) {
 							((AddSubContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(47); expr(10);
+						setState(49); expr(10);
 						}
 						break;
 					}
 					} 
 				}
-				setState(52);
+				setState(54);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			}
@@ -441,22 +460,22 @@ public class ComplexParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\218\4\2\t\2\4\3\t"+
+		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\21:\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\3\2\3\2\3\3\3\3\5\3\r\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
 		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
-		"\3\4\3\4\5\4+\n\4\3\4\3\4\3\4\3\4\3\4\3\4\7\4\63\n\4\f\4\16\4\66\13\4"+
-		"\3\4\2\5\2\4\6\2\4\3\2\5\6\3\2\7\b>\2\b\3\2\2\2\4\n\3\2\2\2\6*\3\2\2\2"+
-		"\b\t\5\4\3\2\t\3\3\2\2\2\n\f\5\6\4\2\13\r\7\20\2\2\f\13\3\2\2\2\f\r\3"+
-		"\2\2\2\r\5\3\2\2\2\16\17\b\4\1\2\17+\7\r\2\2\20+\7\16\2\2\21+\7\17\2\2"+
-		"\22\23\7\t\2\2\23\24\7\4\2\2\24\25\5\6\4\2\25\26\7\3\2\2\26+\3\2\2\2\27"+
-		"\30\7\n\2\2\30\31\7\4\2\2\31\32\5\6\4\2\32\33\7\3\2\2\33+\3\2\2\2\34\35"+
-		"\7\13\2\2\35\36\7\4\2\2\36\37\5\6\4\2\37 \7\3\2\2 +\3\2\2\2!\"\7\f\2\2"+
-		"\"#\7\4\2\2#$\5\6\4\2$%\7\3\2\2%+\3\2\2\2&\'\7\4\2\2\'(\5\6\4\2()\7\3"+
-		"\2\2)+\3\2\2\2*\16\3\2\2\2*\20\3\2\2\2*\21\3\2\2\2*\22\3\2\2\2*\27\3\2"+
-		"\2\2*\34\3\2\2\2*!\3\2\2\2*&\3\2\2\2+\64\3\2\2\2,-\6\4\2\3-.\t\2\2\2."+
-		"\63\5\6\4\2/\60\6\4\3\3\60\61\t\3\2\2\61\63\5\6\4\2\62,\3\2\2\2\62/\3"+
-		"\2\2\2\63\66\3\2\2\2\64\62\3\2\2\2\64\65\3\2\2\2\65\7\3\2\2\2\66\64\3"+
-		"\2\2\2\6\f*\62\64";
+		"\3\4\3\4\3\4\3\4\5\4-\n\4\3\4\3\4\3\4\3\4\3\4\3\4\7\4\65\n\4\f\4\16\4"+
+		"8\13\4\3\4\2\5\2\4\6\2\4\3\2\5\6\3\2\7\bA\2\b\3\2\2\2\4\n\3\2\2\2\6,\3"+
+		"\2\2\2\b\t\5\4\3\2\t\3\3\2\2\2\n\f\5\6\4\2\13\r\7\20\2\2\f\13\3\2\2\2"+
+		"\f\r\3\2\2\2\r\5\3\2\2\2\16\17\b\4\1\2\17\20\7\b\2\2\20-\5\6\4\2\21-\7"+
+		"\r\2\2\22-\7\16\2\2\23-\7\17\2\2\24\25\7\t\2\2\25\26\7\4\2\2\26\27\5\6"+
+		"\4\2\27\30\7\3\2\2\30-\3\2\2\2\31\32\7\n\2\2\32\33\7\4\2\2\33\34\5\6\4"+
+		"\2\34\35\7\3\2\2\35-\3\2\2\2\36\37\7\13\2\2\37 \7\4\2\2 !\5\6\4\2!\"\7"+
+		"\3\2\2\"-\3\2\2\2#$\7\f\2\2$%\7\4\2\2%&\5\6\4\2&\'\7\3\2\2\'-\3\2\2\2"+
+		"()\7\4\2\2)*\5\6\4\2*+\7\3\2\2+-\3\2\2\2,\16\3\2\2\2,\21\3\2\2\2,\22\3"+
+		"\2\2\2,\23\3\2\2\2,\24\3\2\2\2,\31\3\2\2\2,\36\3\2\2\2,#\3\2\2\2,(\3\2"+
+		"\2\2-\66\3\2\2\2./\6\4\2\3/\60\t\2\2\2\60\65\5\6\4\2\61\62\6\4\3\3\62"+
+		"\63\t\3\2\2\63\65\5\6\4\2\64.\3\2\2\2\64\61\3\2\2\2\658\3\2\2\2\66\64"+
+		"\3\2\2\2\66\67\3\2\2\2\67\7\3\2\2\28\66\3\2\2\2\6\f,\64\66";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {

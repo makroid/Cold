@@ -25,7 +25,13 @@ public class EvalPrefixVisitor extends ComplexBaseVisitor<String> {
     public String visitPrintExpr(ComplexParser.PrintExprContext ctx) {
         String value = visit(ctx.expr()); // evaluate the expr child
         resultFunc = value;
-        return value;                          // return dummy value
+        return value;                      
+    }
+    
+    @Override
+    public String visitUnaryMinus(ComplexParser.UnaryMinusContext ctx) {
+    	String expr = visit(ctx.expr());
+    	return "complexMinus(vec2(0.0,0.0)," + expr + ")";
     }
 
     /** ID */

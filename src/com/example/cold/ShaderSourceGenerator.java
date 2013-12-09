@@ -188,11 +188,11 @@ public class ShaderSourceGenerator {
 	}
 	
 	public void generate(ComplexExpression expr) {
-		srcFragShader = "#version 101\n";
 		String func = expr.getExpression();
-		if (func == "") { 
+		if (func.equals("")) { 
 			func = "z"; 
 		}
+		srcFragShader = "";
 		srcFragShader += fragmentShaderHeader;
 		for (String varName : expr.getVariables().keySet()) {
 			srcFragShader += "uniform vec2 " + varName + ";\n";

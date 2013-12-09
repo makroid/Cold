@@ -100,8 +100,11 @@ public final class Shader {
 			throws Exception {
 		shaderGenerator.generate(cExpr);		
 	
+		// System.out.println(shaderGenerator.getSrcVertexShader());
+		System.out.println(shaderGenerator.getSrcFragShader());
 		mIdShaderVertex = loadShader(GLES20.GL_VERTEX_SHADER, shaderGenerator.getSrcVertexShader());
 		mIdShaderFragment = loadShader(GLES20.GL_FRAGMENT_SHADER, shaderGenerator.getSrcFragShader());
+		
 		checkGlError("glLoadShader");
 		int program = GLES20.glCreateProgram();
 		checkGlError("glCreateProgram");

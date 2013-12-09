@@ -35,7 +35,8 @@ public class FuncInputPanel extends LinearLayout {
 			public void onClick(View v) {
 				String func = mEditTextFunc.getText().toString();
 				ComplexExpression cExpr = new ComplexExpression();
-				cExpr.parseExpression(func);
+				boolean success = cExpr.parseExpression(func);
+				if ( ! success) return;
 				try {
 					mParent.updateComplexExpression(cExpr);
 					mParent.updateViews();
