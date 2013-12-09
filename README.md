@@ -28,6 +28,17 @@ There are many different colorings possible, yet there are only two simple ones 
 
 Android min API level: 11, opengl es 2.0
 
+Usage
+-----
+Having opened the app, type in a formula in the upper input field. Some predefined functions (such as `sin`, `cos`) are available by clicking on the plus button next to the input field. For example:
+
+        z/(sin(z)*a)+2i*b
+        
+The independent variable is `z`, other variables can be called arbitrarily (consisting of characters [a-zA-Z]), the imaginary unit `i` is also reserved. 
+
+Clicking `Ok` starts rendering the expression. You can pan and zoom the plane. The sliders at the bottom allow to alter the real and imaginary part of any user-defined variable.
+
+
 Miscellaneous
 -------------
 Up to now, this is mainly a tool to generate nice pictures but not to enhance the understanding of the mathematics behind.
