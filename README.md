@@ -3,7 +3,7 @@ Cold
 This is a very simple domain coloring app for android.
 So you can generate pictures like these:
 
-![Cold](http://i.imgur.com/u0vImWy.jpg?1)
+![Cold](http://i.imgur.com/nEeOHXS.jpg)
 
 
 Introduction
