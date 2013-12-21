@@ -14,5 +14,8 @@
     <string name="exp">exp</string>
     <string name="log">log</string>
     <string name="brackets">( )</string>
+    <string name="edit_variable">Edit variable</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

@@ -27,29 +27,37 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0010;
+        public static final int action_settings=0x7f0a0017;
         public static final int button1=0x7f0a0004;
-        public static final int buttonEditVar=0x7f0a0007;
+        public static final int buttonEditVar=0x7f0a000e;
         public static final int buttonFuncAdd=0x7f0a0001;
         public static final int buttonOk=0x7f0a0002;
         public static final int editText1=0x7f0a0003;
         public static final int editText2=0x7f0a0005;
         public static final int editTextFunc=0x7f0a0000;
-        public static final int item_brackets=0x7f0a000f;
-        public static final int item_cosine=0x7f0a000c;
-        public static final int item_exp=0x7f0a000d;
-        public static final int item_log=0x7f0a000e;
-        public static final int item_sine=0x7f0a000b;
-        public static final int menu_settings=0x7f0a000a;
-        public static final int seekBarIm=0x7f0a0009;
-        public static final int seekBarRe=0x7f0a0008;
-        public static final int spinnerVar=0x7f0a0006;
+        public static final int imagEndEdit=0x7f0a000c;
+        public static final int imagStartEdit=0x7f0a0009;
+        public static final int item_brackets=0x7f0a0016;
+        public static final int item_cosine=0x7f0a0013;
+        public static final int item_exp=0x7f0a0014;
+        public static final int item_log=0x7f0a0015;
+        public static final int item_sine=0x7f0a0012;
+        public static final int menu_settings=0x7f0a0011;
+        public static final int realEndEdit=0x7f0a000b;
+        public static final int realStartEdit=0x7f0a0008;
+        public static final int seekBarIm=0x7f0a0010;
+        public static final int seekBarRe=0x7f0a000f;
+        public static final int spinnerVar=0x7f0a000d;
+        public static final int tableRow1=0x7f0a0006;
+        public static final int tableRow2=0x7f0a000a;
+        public static final int variableHeader=0x7f0a0007;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int func_input_panel=0x7f030001;
         public static final int test_layout=0x7f030002;
-        public static final int variables_panel=0x7f030003;
+        public static final int variable_edit_dialog=0x7f030003;
+        public static final int variables_panel=0x7f030004;
     }
     public static final class menu {
         public static final int actionbar_menu=0x7f090000;
@@ -60,11 +68,14 @@ public final class R {
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
         public static final int brackets=0x7f06000c;
+        public static final int cancel=0x7f06000f;
         public static final int cosine=0x7f060009;
+        public static final int edit_variable=0x7f06000d;
         public static final int errorShaderCompiler=0x7f060007;
         public static final int exp=0x7f06000a;
         public static final int hello_world=0x7f060003;
         public static final int log=0x7f06000b;
+        public static final int ok=0x7f06000e;
         public static final int sine=0x7f060008;
         public static final int sub=0x7f060005;
         public static final int tabCold=0x7f060006;

@@ -6,4 +6,9 @@
         android:key="pref_blackWhiteColoring"
         android:summary="Use black-white coloring"
         android:title="Coloring" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="pref_fullScreen"
+        android:summary="Show full screen"
+        android:title="Fullscreen" />
 </PreferenceScreen>

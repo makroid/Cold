@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -19,6 +20,7 @@ public class VariablesPanel extends LinearLayout {
 	private Spinner mVarSpinner;
 	private SeekBar mSeekbarRe;
 	private SeekBar mSeekbarIm;
+	private Button mEditButton;
 	private ComplexExpression cExpr = null;
 	
 	public VariablesPanel(MainActivity acontext) {
@@ -29,6 +31,7 @@ public class VariablesPanel extends LinearLayout {
 		mVarSpinner = (Spinner) findViewById(R.id.spinnerVar);
 		mSeekbarRe = (SeekBar) findViewById(R.id.seekBarRe);
 		mSeekbarIm = (SeekBar) findViewById(R.id.seekBarIm);
+		mEditButton = (Button) findViewById(R.id.buttonEditVar);
 	
 		setUpListeners();
 	}
@@ -98,6 +101,19 @@ public class VariablesPanel extends LinearLayout {
 				
 			}
 		});
+		
+		mEditButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (cExpr==null)  return;
+				ComplexVariable curVar = cExpr.getActiveVariable();
+				if (curVar == null) return;
+				VariableDialog vDialog = new VariableDialog();
+				vDialog.setVariable(curVar);
+				vDialog.show(mParent.getFragmentManager().beginTransaction(), "");
+			}
+		});
 	}
 	
 	private void initLayout(Context acontext) {
@@ -113,10 +129,10 @@ public class VariablesPanel extends LinearLayout {
 		List<String> list = new ArrayList<String>();
 		for (ComplexVariable cvar : cExpr.getVariables().values()) {
 			list.add(cvar.name);
-			cvar.setLowerRe(-5);
-			cvar.setUpperRe(5);
-			cvar.setLowerIm(-5);
-			cvar.setUpperIm(5);
+			cvar.setLowerRe(-15);
+			cvar.setUpperRe(15);
+			cvar.setLowerIm(-15);
+			cvar.setUpperIm(15);
 			cvar.real = 1;
 			cvar.imag = 0;
 		}

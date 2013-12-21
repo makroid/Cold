@@ -73,6 +73,9 @@ public class ShaderSourceGenerator {
 			//"	if (theta < 0.0)\n" +
 			//"		theta += 2.0 * PI;\n" +
 			"	return vec2(log(r), theta);\n" +
+			"}\n" +
+			"vec2 complexPower(vec2 z, vec2 a) {\n" +
+			"	return complexExp(complexMult(a, complexLog(z)));\n" +
 			"}\n";
 	
 	private String fragmentShaderHSVtoRGB = 

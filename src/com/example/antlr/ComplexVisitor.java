@@ -61,6 +61,13 @@ public interface ComplexVisitor<T> extends ParseTreeVisitor<T> {
 	T visitSine(@NotNull ComplexParser.SineContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link ComplexParser#Power}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPower(@NotNull ComplexParser.PowerContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link ComplexParser#AddSub}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -74,6 +74,14 @@ public class ComplexBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
+	@Override public T visitPower(@NotNull ComplexParser.PowerContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
 	@Override public T visitAddSub(@NotNull ComplexParser.AddSubContext ctx) { return visitChildren(ctx); }
 
 	/**

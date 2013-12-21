@@ -54,6 +54,9 @@ public class ColdView extends GLSurfaceView implements GLSurfaceView.Renderer {
 		mShaderCold.useProgram();
 
 		final float matrix[] = new float[9];
+		float scaleX = Math.min((float)this.getWidth() / this.getHeight(), (float)this.getHeight() / this.getWidth());
+		float scaleY = Math.max((float)this.getWidth() / this.getHeight(), (float)this.getHeight() / this.getWidth());
+		//mMatrixView.setScale(scaleX, scaleX);
 		mMatrixView.getValues(matrix);
 		transpose(matrix);
 		GLES20.glUniformMatrix3fv(mShaderCold.getHandle("uViewMatrix"), 1,

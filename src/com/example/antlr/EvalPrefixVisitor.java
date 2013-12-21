@@ -70,6 +70,14 @@ public class EvalPrefixVisitor extends ComplexBaseVisitor<String> {
 		}
 		return "vec2(0.0," + complex + ")";
 	}
+	
+    /** expr op=('**'|'^') expr */
+    @Override
+    public String visitPower(ComplexParser.PowerContext ctx) {
+        String left = visit(ctx.expr(0));  // get value of left subexpression
+        String right = visit(ctx.expr(1)); // get value of right subexpression
+        return "complexPower(" + left + "," + right +")";
+    }
 
 	/** expr op=('*'|'/') expr */
 	@Override

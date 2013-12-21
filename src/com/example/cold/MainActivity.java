@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -42,6 +43,7 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 		
 		setContentView(layout);
 		
+		
 		pref = PreferenceManager.getDefaultSharedPreferences(this);
 		pref.registerOnSharedPreferenceChangeListener(this);
 		
@@ -71,6 +73,14 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 			mColdView.onResume();
 		}
 	}	
+	
+	@Override
+	public void onStop() {
+		super.onStop();
+		SharedPreferences.Editor editor = pref.edit();
+	    editor.putBoolean("pref_fullScreen", false);
+	    editor.commit();
+	}
 	
 	public void updateComplexExpression(ComplexExpression expr) {
 		cExpr = expr;
@@ -106,6 +116,21 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 	}
 	
 	private void restoreSettings() {
+		checkPrefBlackWhiteColoring();
+	}
+
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences pref, String key) {
+		// TODO Auto-generated method stub
+		if (key.equals("pref_blackWhiteColoring")) {
+			checkPrefBlackWhiteColoring();
+		}
+		else if (key.equals("pref_fullScreen")) {
+			checkPrefFullScreen();
+		}
+	}
+	
+	private void checkPrefBlackWhiteColoring() {
 		boolean doBlackWhiteColoring = pref.getBoolean("pref_blackWhiteColoring", false);
 		if (doBlackWhiteColoring) {
 			mColdView.setColoring(ColdSettings.Coloring.blackwhite);
@@ -114,18 +139,17 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 		}
 		mColdView.requestRender();
 	}
-
-	@Override
-	public void onSharedPreferenceChanged(SharedPreferences pref, String key) {
-		// TODO Auto-generated method stub
-		if (key.equals("pref_blackWhiteColoring")) {
-			boolean doBlackWhiteColoring = pref.getBoolean("pref_blackWhiteColoring", false);
-			if (doBlackWhiteColoring) {
-				mColdView.setColoring(ColdSettings.Coloring.blackwhite);
-			} else {
-				mColdView.setColoring(ColdSettings.Coloring.standard);
-			}
-			mColdView.requestRender();
+	
+	private void checkPrefFullScreen() {
+		boolean doShowFullScreen = pref.getBoolean("pref_fullScreen", false);
+		if (doShowFullScreen) {
+			mFuncInputPanel.setVisibility(View.GONE);
+			mVarPanel.setVisibility(View.GONE);
+		} else {
+			mFuncInputPanel.setVisibility(View.VISIBLE);
+			mVarPanel.setVisibility(View.VISIBLE);
 		}
+		updateColdView();
+		mColdView.requestRender();	
 	}
 }
