@@ -80,19 +80,32 @@ public class Utils {
 	        }
 	        return false;
 	    }
-	    if (!seenDigit)
-	    {
+	    if ( ! seenDigit) {
 	        return false;
 	    }
-	    try
-	    {
+	    try {
 	        Float.parseFloat(value);
 	        return true;
 	    }
-	    catch (NumberFormatException e)
-	    {
+	    catch (NumberFormatException e) {
 	        return false;
 	    }
 	}
 
+	public static boolean isInteger(String value) {
+		boolean seenDigit = false;	
+		for (int i=0; i < value.length(); i++) {
+			char c = value.charAt(i);
+	        if (c >= '0' && c <= '9') {
+	        	seenDigit = true;	        
+	        }
+		}
+		if ( ! seenDigit) return false;
+		try {
+			 Integer.parseInt(value);
+			 return true;
+		} catch (NumberFormatException e) {
+		   return false;
+		}
+	}
 }

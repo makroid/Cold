@@ -4,18 +4,6 @@
     android:layout_height="fill_parent"
     android:shrinkColumns="*"  
     android:stretchColumns="*" >
-    
-    <TableRow android:id="@+id/tableRow1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="20dip" >
-        
-        <TextView
-        	android:id="@+id/variableHeader"
-        	android:layout_span="3"
-        	android:layout_gravity="center"
-        	android:text="Variable" />
-    </TableRow>
 	
 	<TableRow
         android:id="@+id/tableRow1"
@@ -69,5 +57,45 @@
 	        android:id="@+id/imagEndEdit"
 	        android:layout_height="wrap_content"
 	        android:inputType="numberSigned|numberDecimal"/>
+    </TableRow>
+    
+	<TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+	    
+	    <TextView
+	        android:text="Time" />
+	    
+	    <EditText 
+	        android:id="@+id/realTimeEdit"
+	        android:layout_height="wrap_content"
+	        android:inputType="number"/>
+	    
+	    <EditText 
+	        android:id="@+id/imagTimeEdit"
+	        android:layout_height="wrap_content"
+	        android:inputType="number"/>
+    </TableRow>
+    
+	<TableRow
+        android:id="@+id/tableRow4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+	    
+	    <TextView
+	        android:text="Rev." />
+	    
+	    <CheckBox 
+	        android:id="@+id/realTimeReverse"
+	        android:layout_height="wrap_content" 
+	        android:layout_gravity="center"/>
+	    
+	    <CheckBox
+	        android:id="@+id/imagTimeReverse"
+	        android:layout_height="wrap_content" 
+	        android:layout_gravity="center" />
     </TableRow>
 </TableLayout>

@@ -90,6 +90,12 @@ public class FuncInputPanel extends LinearLayout {
 		        	case R.id.item_brackets:
 		        		insertTextIntoEditText("()", 1);
 		        		return true;
+		        	case R.id.item_rot:
+		        		insertTextIntoEditText("rot()", 4);
+		        		return true;
+		        	case R.id.item_idist:
+		        		insertTextIntoEditText("idist()", 6);
+		        		return true;
 		        	default:
 		        		return false;
 				}				

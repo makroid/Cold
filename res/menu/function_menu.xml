@@ -8,6 +8,10 @@
           android:title="@string/exp" />
     <item android:id="@+id/item_log"
           android:title="@string/log" />
+    <item android:id="@+id/item_rot"
+          android:title="@string/rot" />
+    <item android:id="@+id/item_idist"
+          android:title="@string/idist" />
     <item android:id="@+id/item_brackets"
           android:title="@string/brackets" />
 

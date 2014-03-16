@@ -7,19 +7,34 @@ public class ShaderSourceGenerator {
 	private ColdSettings.Coloring coloring;
 	
 	private String defaultVertexShader = 
+		"#ifndef GL_FRAGMENT_PRECISION_HIGH\n" + 
+		"precision mediump float;\n" + 
+		"precision mediump int;\n" +
+		"#else\n" +
+		"precision highp float;\n" +
+		"precision highp int;\n" +
+		"#endif\n" +
+		"uniform mat3 uAspectRatioMatrix;\n" +
 		"uniform mat3 uViewMatrix;\n" +
 		"uniform mat3 uMoveMatrix;\n" +	
 		"attribute vec2 aPosition;\n" +
 		"varying vec2 vPosition;\n" +
 		"void main() {\n" +
-		"	vec3 pos = uViewMatrix * uMoveMatrix * vec3(aPosition, 1.0);\n" +
-		"	vPosition = (pos.xy / pos.z) * 1.0;\n" +
+		"	vec3 pos = uViewMatrix * uMoveMatrix * uAspectRatioMatrix * vec3(aPosition, 1.0);\n" +
+		"	vPosition = (pos.xy) * 10.0;\n" +
 		"	gl_Position = vec4(aPosition, 0.0, 1.0);\n" +
 		"}\n";
 	
 	private String fragmentShaderHeader = 
-			"precision mediump float;\n" +
-			"varying vec2 vPosition;\n";
+			"#ifndef GL_FRAGMENT_PRECISION_HIGH\n" + 
+			"precision mediump float;\n" + 
+			"precision mediump int;\n" +
+			"#else\n" +
+			"precision highp float;\n" +
+			"precision highp int;\n" +
+			"#endif\n" +
+			"varying vec2 vPosition;\n" +
+			"uniform int maxIterations;\n";
 	
 	private String fragmentShaderComplexFuns = 
 			"float PI = atan(1.0)*4.0;\n" +
@@ -45,9 +60,9 @@ public class ShaderSourceGenerator {
 			"vec2 complexPlus(vec2 z1, vec2 z2) {\n" +
 			"	return vec2(z1.x + z2.x, z1.y + z2.y);\n" +
 			"}\n" +
-			"vec2 complexMinus(vec2 z1, vec2 z2) {" +
+			"vec2 complexMinus(vec2 z1, vec2 z2) {\n" +
 			"	return vec2(z1.x - z2.x, z1.y - z2.y);\n" +
-			"}" +
+			"}\n" +
 			"vec2 complexMult(vec2 z1, vec2 z2) {\n" +
 			"	return vec2(z1.x * z2.x - z1.y * z2.y, z1.x * z2.y + z1.y * z2.x);\n" +
 			"}\n" +
@@ -76,6 +91,19 @@ public class ShaderSourceGenerator {
 			"}\n" +
 			"vec2 complexPower(vec2 z, vec2 a) {\n" +
 			"	return complexExp(complexMult(a, complexLog(z)));\n" +
+			"}\n" +
+			"vec2 complexRot(vec2 value, vec2 arg) {\n" +
+			"	float angle = sqrt(arg.x * arg.x + arg.y * arg.y);\n" +
+			"	return complexMult(vec2(cos(angle), sin(angle)), value);\n" +
+			"}\n" +
+			"vec2 complexIdist(vec2 center, vec2 value, vec2 arg) {\n" +
+			"	float radius = length(arg);\n" +
+			"	float dist = distance(center, value);\n" +
+			"	if (dist <= radius) {\n" +
+			"		return vec2(1.0, 1.0);\n" +
+			"	} else {\n" +
+			"		return vec2(0.0, 0.0);\n" +
+			"	}\n" +
 			"}\n";
 	
 	private String fragmentShaderHSVtoRGB = 
@@ -185,6 +213,51 @@ public class ShaderSourceGenerator {
 			"	}\n" +
 			"}\n";
 	
+	private String complexToBlackMaxTest = 
+			"vec4 complexToBlackMaxTest(vec2 z, float max) {\n" +
+			"	float len = length(z);\n" +
+			"	if (len >= max) {\n" +
+			"		return vec4(1.0, 1.0, 1.0, 1.0);\n" +
+			"	} else {\n" +
+			"		return vec4(0.0, 0.0, 0.0, 1.0);\n" +
+			"	}\n" +
+			"}\n";
+	
+	private String iterToBlue = 
+			"vec4 iterToBlue(float iter) {\n" +
+			"	if (iter < 0.0) {\n" +
+			"		return vec4(0.0, 0.0, 0.0, 1.0);\n" +
+			"	} else {\n" +
+			"		float blue = iter/float(maxIterations);\n" +
+			"		return vec4(0.0, 0.0, blue, 1.0);\n" +
+			"	}\n" +
+			"}\n";
+	
+	private String generateIterationFunction(String cfunction) {
+		String shaderSource = 
+				"vec3 iterationFunction(vec2 zz) {\n" +
+				"	vec2 z = zz;\n" +
+				"	int iter = 1;\n" +
+				"	if (maxIterations == 1) {\n" +
+				"		vec2 func = " + cfunction + ";\n" +
+				"		return vec3(func, 1.0);\n" +
+				"	} else {\n" +
+				"		for (iter=0; iter<maxIterations; iter++) {\n" +
+				"			if (length(z) >= 2.0) break;\n" +
+				"			z = " + cfunction + ";\n" +
+				"			z += zz;\n" +
+				"		}\n" +
+				"	}\n" +
+				"	if (iter == maxIterations) {\n" +
+				"		return vec3(z, -1.0);\n" +
+				"	} else {\n" +
+				"		return vec3(z, float(iter));\n" +
+				"		//return vec3(1.0, 1.0, 1.0);\n" +
+				"	}\n" +
+				"}\n";
+		return shaderSource;
+	}
+	
 	public ShaderSourceGenerator() {
 		srcVertexShader = defaultVertexShader;
 		coloring = ColdSettings.Coloring.standard;
@@ -203,17 +276,30 @@ public class ShaderSourceGenerator {
 		srcFragShader += fragmentShaderComplexFuns;
 		srcFragShader += fragmentShaderHSVtoRGB;
 		srcFragShader += complexToHSB;
-		srcFragShader += complexToBlackWhite;
-		srcFragShader += complexToColor;
-		srcFragShader += "void main() {\n";
-		srcFragShader += "	vec2 z = vPosition;\n";
-		srcFragShader += "	vec2 cfunc = " + func + ";\n";
-		if (coloring == ColdSettings.Coloring.standard) {
-			srcFragShader += "	gl_FragColor = complexToColor(cfunc);\n";
-		} else if (coloring == ColdSettings.Coloring.blackwhite) {
-			srcFragShader += "	gl_FragColor = complexToBlackWhite(cfunc);\n";
+		srcFragShader += iterToBlue;
+		if (coloring == ColdSettings.Coloring.blackwhite) {
+			srcFragShader += complexToBlackWhite;
+		} else if (coloring == ColdSettings.Coloring.blackMax) {
+			srcFragShader += complexToBlackMaxTest;
 		} else {
-			srcFragShader += "	gl_FragColor = complexToColor(cfunc);\n";
+			srcFragShader += complexToColor;
+		}
+		
+		srcFragShader += generateIterationFunction(func);
+		
+		srcFragShader += "void main() {\n";		
+		srcFragShader += "	vec2 z = vPosition;\n";
+		srcFragShader += "	vec3 zAndIter = iterationFunction(z);\n";
+		if (coloring == ColdSettings.Coloring.standard) {
+			srcFragShader += "	gl_FragColor = complexToColor(zAndIter.xy);\n";
+		} else if (coloring == ColdSettings.Coloring.blackwhite) {
+			srcFragShader += "	gl_FragColor = complexToBlackWhite(zAndIter.xy);\n";
+		} else if (coloring == ColdSettings.Coloring.blackMax) {
+			srcFragShader += "  gl_FragColor = complexToBlackMaxTest(zAndIter.xy, 1.0);\n";
+		} else if (coloring == ColdSettings.Coloring.iterationBlue) {
+			srcFragShader += "  gl_FragColor = iterToBlue(zAndIter.z);\n";
+		} else {			
+			srcFragShader += "	gl_FragColor = complexToColor(zAndIter.xy);\n";
 		}
 		srcFragShader += "}\n";
 	}

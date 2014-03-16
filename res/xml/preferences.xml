@@ -11,4 +11,13 @@
         android:key="pref_fullScreen"
         android:summary="Show full screen"
         android:title="Fullscreen" />
+    <com.example.cold.SeekBarDialogPreference
+        android:key="pref_maxIterations"
+        android:defaultValue="20"
+        android:dialogMessage="Max. iterations:"
+        android:max="200"
+        android:title="Maximum number of iterations"
+        android:summary="Number of function iterations."        
+        custom:min="1" />
 </PreferenceScreen>
+

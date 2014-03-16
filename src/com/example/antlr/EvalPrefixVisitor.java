@@ -70,7 +70,7 @@ public class EvalPrefixVisitor extends ComplexBaseVisitor<String> {
 		}
 		return "vec2(0.0," + complex + ")";
 	}
-	
+
     /** expr op=('**'|'^') expr */
     @Override
     public String visitPower(ComplexParser.PowerContext ctx) {
@@ -116,6 +116,23 @@ public class EvalPrefixVisitor extends ComplexBaseVisitor<String> {
 		String value = visit(ctx.expr()); // get value of left subexpression
 		return "complexLog(" + value + ")";
 	}
+	
+	/** ROT'('expr','expr')' */
+    @Override
+    public String visitRot(ComplexParser.RotContext ctx) {
+    	String value = visit(ctx.expr(0));
+    	String angle = visit(ctx.expr(1));
+    	return "complexRot(" + value + "," + angle + ")";
+    }
+
+    /** IDIS'('expr','expr','expr')' */
+    @Override
+    public String visitIdist(ComplexParser.IdistContext ctx) {
+    	String center = visit(ctx.expr(0));
+    	String value = visit(ctx.expr(1));
+    	String radius = visit(ctx.expr(2));
+    	return "complexIdist(" + center + "," + value + "," + radius + ")";
+    }
 
 	/** expr op=('+'|'-') expr */
 	@Override

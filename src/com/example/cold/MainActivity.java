@@ -42,8 +42,7 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 		layout.addView(mVarPanel);
 		
 		setContentView(layout);
-		
-		
+				
 		pref = PreferenceManager.getDefaultSharedPreferences(this);
 		pref.registerOnSharedPreferenceChangeListener(this);
 		
@@ -82,13 +81,16 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 	    editor.commit();
 	}
 	
-	public void updateComplexExpression(ComplexExpression expr) {
-		cExpr = expr;
+	public void updateComplexExpression(ComplexExpression newExpr) {
+		if (cExpr != null) {
+			newExpr.takeOverVariablesFrom(cExpr);
+		}
+		cExpr = newExpr;
 	}
 	
 	public void updateViews() {
 		updateColdView();
-		updateVariablesView();
+		updateVariablesView();		
 	}
 	
 	private void updateColdView() {
@@ -98,7 +100,7 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 		LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1);
 		mColdView = new ColdView(this, cExpr);
 		parent.addView(mColdView, index, p);
-		restoreSettings();
+		restoreSettings();		
 	}
 	
 	private void updateVariablesView() {
@@ -124,9 +126,12 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 		// TODO Auto-generated method stub
 		if (key.equals("pref_blackWhiteColoring")) {
 			checkPrefBlackWhiteColoring();
-		}
-		else if (key.equals("pref_fullScreen")) {
+		} else if (key.equals("pref_fullScreen")) {
 			checkPrefFullScreen();
+		} else if (key.equals("pref_maxIterations")) {
+			int maxIterations = pref.getInt("pref_maxIterations", 20);
+			cExpr.setMaxIterations(maxIterations);
+			mColdView.requestRender();
 		}
 	}
 	

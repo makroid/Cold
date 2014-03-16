@@ -17,5 +17,6 @@
     <string name="edit_variable">Edit variable</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
-
+	<string name="rot">rot</string>
+	<string name="idist">idist</string>
 </resources>

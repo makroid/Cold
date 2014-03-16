@@ -15,11 +15,13 @@ public class ComplexExpression {
 	private String expr;
 	private HashMap<String, ComplexVariable> variables;
 	private String activeVar;
+	private int maxIterations;
 	
 	public ComplexExpression() {
 		expr = "z";
 		variables = new HashMap<String, ComplexVariable>();
 		activeVar = "";
+		maxIterations = 1;
 	}
 	
 	// parse String 'expression' via ANTLR generated parser, 
@@ -38,10 +40,11 @@ public class ComplexExpression {
 			evalVisitor.visit(tree);
 			
 			expr = evalVisitor.resultFunc;
+			System.out.println("expr=" + expr);
 			variables.clear();
-			for (String var : evalVisitor.variables) {
+			for (String var : evalVisitor.variables) {				
 				variables.put(var, new ComplexVariable(var, 1.0f, 0.0f));
-			}
+			}		
 			return true;
 		} catch (RuntimeException e) {
 			expr = "";
@@ -76,5 +79,28 @@ public class ComplexExpression {
 			return null;
 		}
 		return variables.get(activeVar);
+	}
+	
+	public int getMaxIerations() {
+		return maxIterations;
+	}
+	
+	public void setMaxIterations(int m) {
+		if (m > 0) {
+			maxIterations = m;
+		} else {
+			maxIterations = 1;
+		}
+	}
+	
+	// check if variables in otherExpression match variables in this expression
+	// and if yes, take their values
+	public void takeOverVariablesFrom(ComplexExpression otherExpression) {
+		for (String otherVarName : otherExpression.getVariables().keySet()) {
+			if (variables.containsKey(otherVarName)) {
+				ComplexVariable cVar = variables.get(otherVarName);				
+				cVar.updateAll(otherExpression.getVariable(otherVarName));
+			}
+		}
 	}
 }

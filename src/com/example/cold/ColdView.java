@@ -23,10 +23,12 @@ public class ColdView extends GLSurfaceView implements GLSurfaceView.Renderer {
 	private ByteBuffer mBufferQuad;
 	private Matrix mMatrixMove = new Matrix();
 	private Matrix mMatrixView = new Matrix();
+	private Matrix mMatrixAspect = new Matrix();
 	private SparseArray<StructPointer> mPointers = new SparseArray<StructPointer>();
 	private boolean mShaderCompilerSupport[] = new boolean[1];
 	private Shader mShaderCold = new Shader();
 	private int mWidth, mHeight;
+	private float mRatio;
 
 	public ColdView(MainActivity context, ComplexExpression aexpr) {
 		super(context);
@@ -53,25 +55,32 @@ public class ColdView extends GLSurfaceView implements GLSurfaceView.Renderer {
 
 		mShaderCold.useProgram();
 
-		final float matrix[] = new float[9];
-		float scaleX = Math.min((float)this.getWidth() / this.getHeight(), (float)this.getHeight() / this.getWidth());
-		float scaleY = Math.max((float)this.getWidth() / this.getHeight(), (float)this.getHeight() / this.getWidth());
-		//mMatrixView.setScale(scaleX, scaleX);
+		final float matrix[] = new float[9];		
+		mMatrixAspect.getValues(matrix);
+		transpose(matrix);
+		GLES20.glUniformMatrix3fv(mShaderCold.getHandle("uAspectRatioMatrix"), 1,
+				false, matrix, 0);
 		mMatrixView.getValues(matrix);
 		transpose(matrix);
 		GLES20.glUniformMatrix3fv(mShaderCold.getHandle("uViewMatrix"), 1,
 				false, matrix, 0);
-		mMatrixMove.getValues(matrix);
+		mMatrixMove.getValues(matrix);		
 		transpose(matrix);
 		GLES20.glUniformMatrix3fv(mShaderCold.getHandle("uMoveMatrix"), 1,
 				false, matrix, 0);
+		
+		//System.out.println("uViewMatrix=" + mMatrixView);
+		//System.out.println("uMoveMatrix=" + mMatrixMove);
 
 		GLES20.glVertexAttribPointer(mShaderCold.getHandle("aPosition"), 2,
 				GLES20.GL_BYTE, false, 0, mBufferQuad);
 		GLES20.glEnableVertexAttribArray(mShaderCold.getHandle("aPosition"));
 		
-		for (ComplexVariable cvar : cExpr.getVariables().values()) {
-			GLES20.glUniform2f(mShaderCold.getHandle(cvar.name), cvar.real, cvar.imag);
+		//System.out.println("maxIterations=" + cExpr.getMaxIerations());
+		GLES20.glUniform1i(mShaderCold.getHandle("maxIterations"), cExpr.getMaxIerations());
+		
+		for (ComplexVariable cvar : cExpr.getVariables().values()) {		
+			GLES20.glUniform2f(mShaderCold.getHandle(cvar.name), cvar.getReal(), cvar.getImag());
 		}
 		
 		GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
@@ -81,6 +90,16 @@ public class ColdView extends GLSurfaceView implements GLSurfaceView.Renderer {
 	public void onSurfaceChanged(GL10 unused, int width, int height) {
 		mWidth = width;
 		mHeight = height;
+		if (mHeight == 0) {
+			mRatio = 1.0f;
+		} else {
+			mRatio = (1.0f * mHeight) / mWidth;
+		}
+		mMatrixAspect.setScale(1.0f, mRatio);	
+		
+		int range[] = new int[2];
+		int precision[] =  new int[1];
+		GLES20.glGetShaderPrecisionFormat(GLES20.GL_FRAGMENT_SHADER, GLES20.GL_HIGH_FLOAT, range, 0, precision, 0);	
 	}
 
 	@Override
@@ -125,6 +144,7 @@ public class ColdView extends GLSurfaceView implements GLSurfaceView.Renderer {
 			}
 			mMatrixView.preConcat(mMatrixMove);
 			mMatrixMove.reset();
+			requestRender();
 			return true;
 		}
 		case MotionEvent.ACTION_MOVE: {
@@ -168,10 +188,10 @@ public class ColdView extends GLSurfaceView implements GLSurfaceView.Renderer {
 
 				float px = (ptMove1.x / mWidth) * 2 - 1;
 				float py = (ptMove1.y / mHeight) * 2 - 1;
-
+				
 				mMatrixMove.setTranslate(dx, dy);
-				mMatrixMove.preRotate((float) Math.toDegrees(angle), px, -py);
 				mMatrixMove.preScale(scale, scale, px, -py);
+				mMatrixMove.preRotate((float) Math.toDegrees(angle), px, -py);										
 			}
 
 			requestRender();

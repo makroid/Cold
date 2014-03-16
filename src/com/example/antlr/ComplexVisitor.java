@@ -40,6 +40,13 @@ public interface ComplexVisitor<T> extends ParseTreeVisitor<T> {
 	T visitProg(@NotNull ComplexParser.ProgContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link ComplexParser#rot}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRot(@NotNull ComplexParser.RotContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link ComplexParser#printExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -87,6 +94,13 @@ public interface ComplexVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDouble(@NotNull ComplexParser.DoubleContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ComplexParser#idist}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdist(@NotNull ComplexParser.IdistContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ComplexParser#log}.
