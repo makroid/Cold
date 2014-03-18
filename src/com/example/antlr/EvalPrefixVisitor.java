@@ -133,6 +133,14 @@ public class EvalPrefixVisitor extends ComplexBaseVisitor<String> {
     	String radius = visit(ctx.expr(2));
     	return "complexIdist(" + center + "," + value + "," + radius + ")";
     }
+    
+    @Override
+    public String visitInv(ComplexParser.InvContext ctx) {
+    	String center = visit(ctx.expr(0));
+    	String value = visit(ctx.expr(1));
+    	String radius = visit(ctx.expr(2));
+    	return "complexInv(" + center + "," + value + "," + radius +")";
+    }
 
 	/** expr op=('+'|'-') expr */
 	@Override

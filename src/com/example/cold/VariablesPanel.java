@@ -52,17 +52,21 @@ public class VariablesPanel extends LinearLayout {
 				updateProgressRe();
 				updateProgressIm();
 				
-				// update play/pause button of current active variable
+				// update play/pause button and seekbars of current active variable
 				if (cExpr.getActiveVariable().getAnimator().animatorRe.isStarted()) {
 					mAnimReButton.setImageResource(android.R.drawable.ic_media_pause);
+					mSeekbarRe.setEnabled(false);
 				} else {
 					mAnimReButton.setImageResource(android.R.drawable.ic_media_play);
+					mSeekbarRe.setEnabled(true);
 				}
 				
 				if (cExpr.getActiveVariable().getAnimator().animatorIm.isStarted()) {
 					mAnimImButton.setImageResource(android.R.drawable.ic_media_pause);
+					mSeekbarIm.setEnabled(false);
 				} else {
 					mAnimImButton.setImageResource(android.R.drawable.ic_media_play);
+					mSeekbarIm.setEnabled(true);
 				}
 			}
 
@@ -126,6 +130,7 @@ public class VariablesPanel extends LinearLayout {
 				ComplexVariable curVar = cExpr.getActiveVariable();
 				if (curVar == null) return;
 				VariableDialog vDialog = new VariableDialog();
+				vDialog.setParent(VariablesPanel.this);
 				vDialog.setVariable(curVar);
 				vDialog.show(mParent.getFragmentManager().beginTransaction(), "");
 			}
@@ -184,6 +189,11 @@ public class VariablesPanel extends LinearLayout {
 		layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 
 				LinearLayout.LayoutParams.WRAP_CONTENT));
 		addView(layout);
+	}
+	
+	public void doPositiveEditClick() {
+		updateProgressRe();
+		updateProgressIm();
 	}
 	
 	public void updateComplexExpression(ComplexExpression acExpr) {

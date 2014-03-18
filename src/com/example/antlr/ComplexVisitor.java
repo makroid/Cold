@@ -82,6 +82,13 @@ public interface ComplexVisitor<T> extends ParseTreeVisitor<T> {
 	T visitAddSub(@NotNull ComplexParser.AddSubContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link ComplexParser#inv}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInv(@NotNull ComplexParser.InvContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link ComplexParser#parens}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

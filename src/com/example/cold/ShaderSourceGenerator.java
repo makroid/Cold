@@ -46,6 +46,9 @@ public class ShaderSourceGenerator {
 			"{\n" +
 			"	return atan(z.y, z.x);\n" +
 			"}\n" +
+			"vec2 complexConjugate(vec2 z) {\n" +
+			"	return vec2(z.x, (-1.0)*z.y);\n" +
+			"}\n" +
 			"vec2 complexSin(vec2 z)\n" +
 			"{\n" +
 			"	float expy = exp(z.y);\n" +
@@ -104,6 +107,13 @@ public class ShaderSourceGenerator {
 			"	} else {\n" +
 			"		return vec2(0.0, 0.0);\n" +
 			"	}\n" +
+			"}\n" +
+			"vec2 complexInv(vec2 center, vec2 value, vec2 arg) {\n" +
+			"	float radius = length(arg);\n" +
+			"	vec2 valueConj = complexConjugate(value);\n" +
+			"   vec2 centerConj = complexConjugate(center);\n" +
+			"	float lenCenter = cAbs(center);\n" +			
+			"	return complexDiv(complexPlus(complexMult(center, valueConj), vec2(radius*radius - lenCenter*lenCenter, 0.0)), complexMinus(valueConj, centerConj));\n" +
 			"}\n";
 	
 	private String fragmentShaderHSVtoRGB = 
