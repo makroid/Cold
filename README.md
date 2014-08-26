@@ -24,7 +24,7 @@ In order to speed up the execution, it suggests itself to use opengl shaders for
 
 ANTLR allows simple parsing of expressions into shader-valid functions.
 
-There are many different colorings possible, yet there are only two simple ones implemented.
+There are many different colorings possible, yet only two simple ones are implemented.
 
 Android min API level: 11, opengl es 2.0
 
@@ -38,6 +38,10 @@ The independent variable is `z`, other variables can be called arbitrarily (cons
 
 Clicking `Ok` starts rendering the expression. You can pan and zoom the plane. The sliders at the bottom allow to alter the real and imaginary part of any user-defined variable.
 
+Animations
+----------
+The real and imaginary part of each variable can be animated automatically by pressing the play button on its right. "Edit" allows to set up a range, time and animation mode. 
+
 
 Miscellaneous
 -------------
@@ -47,4 +51,3 @@ Planned Features
 ----------------
 * add more predefined functions (sinh, cosh, ...)
 * save functions
-* animate variables
