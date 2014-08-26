@@ -233,6 +233,21 @@ public class ShaderSourceGenerator {
 			"	}\n" +
 			"}\n";
 	
+	private String complexToBlackWhiteGrid = 
+			"vec4 complexToBlackWhiteGrid(vec2 z) {\n" +
+			"	int ix = int(z.x);\n" +
+			"	int iy = int(z.y);\n" +			
+			"	float dx = z.x - float(ix);\n" +
+			"	float dy = z.y - float(iy);\n" +
+			"	if (dx < 0.1 && dx > -0.1) {\n" +
+			"		return vec4(0.0, 0.0, 0.0, 0.0);\n" +
+			"	}\n" +
+			"	if (dy < 0.1 && dy > -0.1) {\n" +
+			"		return vec4(0.0, 0.0, 0.0, 0.0);\n" +
+			"	}\n" +
+			"	return vec4(1.0, 1.0, 1.0, 1.0);\n" +
+			"}";
+	
 	private String iterToBlue = 
 			"vec4 iterToBlue(float iter) {\n" +
 			"	if (iter < 0.0) {\n" +
@@ -287,10 +302,12 @@ public class ShaderSourceGenerator {
 		srcFragShader += fragmentShaderHSVtoRGB;
 		srcFragShader += complexToHSB;
 		srcFragShader += iterToBlue;
-		if (coloring == ColdSettings.Coloring.blackwhite) {
+		if (coloring == ColdSettings.Coloring.blackWhiteChess) {
 			srcFragShader += complexToBlackWhite;
-		} else if (coloring == ColdSettings.Coloring.blackMax) {
-			srcFragShader += complexToBlackMaxTest;
+		} else if (coloring == ColdSettings.Coloring.blackWhiteGrid) {
+			srcFragShader += complexToBlackWhiteGrid;
+		} else if (coloring == ColdSettings.Coloring.test) {
+			srcFragShader += complexToBlackMaxTest;					
 		} else {
 			srcFragShader += complexToColor;
 		}
@@ -302,13 +319,16 @@ public class ShaderSourceGenerator {
 		srcFragShader += "	vec3 zAndIter = iterationFunction(z);\n";
 		if (coloring == ColdSettings.Coloring.standard) {
 			srcFragShader += "	gl_FragColor = complexToColor(zAndIter.xy);\n";
-		} else if (coloring == ColdSettings.Coloring.blackwhite) {
+		} else if (coloring == ColdSettings.Coloring.blackWhiteChess) {
 			srcFragShader += "	gl_FragColor = complexToBlackWhite(zAndIter.xy);\n";
-		} else if (coloring == ColdSettings.Coloring.blackMax) {
+		} else if (coloring == ColdSettings.Coloring.blackWhiteGrid) {
+			srcFragShader += "	gl_FragColor = complexToBlackWhiteGrid(zAndIter.xy);\n";
+		} else if (coloring == ColdSettings.Coloring.test) {
 			srcFragShader += "  gl_FragColor = complexToBlackMaxTest(zAndIter.xy, 1.0);\n";
-		} else if (coloring == ColdSettings.Coloring.iterationBlue) {
-			srcFragShader += "  gl_FragColor = iterToBlue(zAndIter.z);\n";
-		} else {			
+		} //else if (coloring == ColdSettings.Coloring.iterationBlue) {
+		//	srcFragShader += "  gl_FragColor = iterToBlue(zAndIter.z);\n";
+	     //}
+		else {			
 			srcFragShader += "	gl_FragColor = complexToColor(zAndIter.xy);\n";
 		}
 		srcFragShader += "}\n";

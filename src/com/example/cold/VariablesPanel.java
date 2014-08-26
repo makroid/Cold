@@ -246,7 +246,7 @@ public class VariablesPanel extends LinearLayout {
 		String curVarStr = mVarSpinner.getSelectedItem().toString();
 		cExpr.setActiveVariable(curVarStr);
 		ComplexVariable cVar = cExpr.getVariable(curVarStr);
-		int progress = realToProgress(cVar);
+		int progress = imagToProgress(cVar);
 		mSeekbarIm.setProgress(progress);
 	}
 }

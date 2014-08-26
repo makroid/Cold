@@ -111,4 +111,13 @@ public class FuncInputPanel extends LinearLayout {
 		        textToInsert, 0, textToInsert.length());
 		mEditTextFunc.setSelection(start + offset);
 	}
+	
+	public String getEditTextFunc() {
+		return mEditTextFunc.getText().toString();
+	}
+	
+	public void setEditTextFunc(String func) {
+		mEditTextFunc.setText(func);
+		mEditTextFunc.setSelection(func.length());
+	}
 }

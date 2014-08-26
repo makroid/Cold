@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:custom="http://schemas.android.com/apk/res-auto" >>
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="pref_blackWhiteColoring"
-        android:summary="Use black-white coloring"
-        android:title="Coloring" />
+    <ListPreference
+        android:key="pref_coloring"
+        android:entries="@array/coloringNames"
+        android:summary="@string/pref_coloring_summary"
+        android:entryValues="@array/coloringValues"
+        android:title="@string/pref_coloring_title" />
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="pref_fullScreen"

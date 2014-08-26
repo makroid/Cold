@@ -3,8 +3,10 @@ package com.example.cold;
 public class ColdSettings {
 	public enum Coloring {
 		standard,
-		blackwhite,
-		blackMax,
-		iterationBlue
+		blackWhiteChess,
+		blackWhiteGrid,
+		test
 	}
+		
+	public final static String SAVEPREFIX = "SAVEEXPR";
 }

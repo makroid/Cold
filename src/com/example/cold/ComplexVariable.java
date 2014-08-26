@@ -1,5 +1,10 @@
 package com.example.cold;
 
+import java.io.IOException;
+
+import android.util.JsonWriter;
+ 
+
 public class ComplexVariable {
 	
 	public String name;
@@ -21,6 +26,7 @@ public class ComplexVariable {
 		animator = new ComplexAnimator(this);
 		setDefaultBounds(real, imag);	
 	}
+	
 	
 	public void setReal(float real) {
 		this.real = real;
@@ -82,6 +88,13 @@ public class ComplexVariable {
 		updateAnimatorIm();
 	}
 	
+	public void setBoundsWoUpdate(float lowerRe, float upperRe, float lowerIm, float upperIm) {
+		this.lowerRe = lowerRe;
+		this.upperRe = upperRe;
+		this.lowerIm = lowerIm;
+		this.upperIm = upperIm;
+	}
+	
 	private void updateAnimatorRe() {
 		animator.animatorRe.setFloatValues(this.lowerRe, this.upperRe);
 	}
@@ -107,4 +120,15 @@ public class ComplexVariable {
 		animator.setDurationIm(otherVar.animator.getDurationIm());
 	}
 	
+	public void writeJson(JsonWriter writer) throws IOException {
+		writer.beginObject();
+		writer.name("name").value(name);
+		writer.name("real").value(real);
+		writer.name("imag").value(imag);
+		writer.name("lowerRe").value(lowerRe);
+		writer.name("upperRe").value(upperRe);
+		writer.name("lowerIm").value(lowerIm);
+		writer.name("upperIm").value(upperIm);
+		writer.endObject();
+	}
 }

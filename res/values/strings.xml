@@ -3,6 +3,8 @@
 
     <string name="app_name">Cold</string>
     <string name="action_settings">Settings</string>
+    <string name="action_save">Save</string>
+    <string name="action_load">Load</string>
     <string name="title_activity_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title">Cold</string>
@@ -19,4 +21,6 @@
     <string name="cancel">Cancel</string>
 	<string name="rot">rot</string>
 	<string name="idist">idist</string>
+	<string name="pref_coloring_summary">Choose a coloring</string>
+	<string name="pref_coloring_title">Coloring</string>
 </resources>

@@ -68,7 +68,7 @@ public class VariableDialog extends DialogFragment {
 	            		   if (rs <= re) {
 	            			   cVar.setLowerRe(rs);
 	            			   cVar.setUpperRe(re);
-	            			   cVar.setReal((re-rs)/2.0f);
+	            			   cVar.setReal((re+rs)/2.0f);	            			  
 	            		   }
 	            	   }
 	            	   if (Utils.isFloat(imagStart) && Utils.isFloat(imagEnd)) {
@@ -77,7 +77,7 @@ public class VariableDialog extends DialogFragment {
 	            		   if (rs <= re) {
 	            			   cVar.setLowerIm(rs);
 	            			   cVar.setUpperIm(re);
-	            			   cVar.setImag((re-rs)/2.0f);
+	            			   cVar.setImag((re+rs)/2.0f);
 	            		   }
 	            	   }
 	            	   if (Utils.isInteger(realTime)) {
